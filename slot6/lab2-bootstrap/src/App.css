@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  background-color: #333;
+}
+
+.hero {
+  position: relative;
+}
+
+.hero-img {
+  height: 520px;
+  object-fit: cover;
+}
+
+.hero-text {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 5px black;
+}
+
+.hero-text h1 {
+  font-size: 45px;
+}
+
+#menu {
+  color: white;
+}
+
+.menu-img {
+  height: 220px;
+  object-fit: cover;
+}
+
+.card {
+  color: black;
+}
+
+.booking {
+  background-color: #333;
+}
