@@ -6,22 +6,40 @@ function Counter() {
 
   return (
     <Card
-      className="p-3 shadow-sm mx-auto"
+      className="p-3 shadow-sm mx-auto text-center"
       style={{ width: '350px' }}
     >
-      <h4 className="text-center">Exercise 1: Counter</h4>
+      <h4>Exercise 1: Counter</h4>
 
-      <p className="text-center mb-3">
+      <p className="mb-3">
         Current count: <strong>{count}</strong>
       </p>
 
-      <Button
-        variant="primary"
-        size="sm"
-        onClick={() => setCount((prev) => prev + 1)}
-      >
-        Increment
-      </Button>
+      <div className="d-flex justify-content-center gap-2">
+        <Button
+          variant="success"
+          size="sm"
+          onClick={() => setCount(count + 1)}
+        >
+          Increment
+        </Button>
+
+        <Button
+          variant="danger"
+          size="sm"
+          onClick={() => setCount(count - 1)}
+        >
+          Decrement
+        </Button>
+
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => setCount(0)}
+        >
+          Reset
+        </Button>
+      </div>
     </Card>
   );
 }
