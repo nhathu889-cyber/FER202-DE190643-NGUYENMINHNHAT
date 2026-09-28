@@ -1,5 +1,6 @@
 import { Container } from 'react-bootstrap';
 import Counter from './components/Counter';
+import ControlledInput from './components/ControlledInput';
 
 function App() {
   return (
@@ -8,7 +9,13 @@ function App() {
         React useState Exercises
       </h2>
 
-      <Counter />
+      <div className="mb-4">
+        <Counter />
+      </div>
+
+      <div className="mb-4">
+        <ControlledInput />
+      </div>
     </Container>
   );
 }
