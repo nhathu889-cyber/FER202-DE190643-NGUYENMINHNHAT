@@ -10,6 +10,7 @@ import FaqAccordion from './usestate/FaqAccordion';
 import ReviewForm from './usestate/ReviewForm';
 import BmiCalculator from './usestate/BmiCalculator';
 import StudentManager from './usestate/StudentManager';
+import Quiz from './usestate/Quiz';
 
 function App() {
   return (
@@ -49,7 +50,7 @@ function App() {
 
       <hr className="my-5" />
 
-      {/* BTVN */}
+      {/* 5 bài BTVN */}
       <h1 className="text-center mb-4">
         useState BTVN
       </h1>
@@ -68,6 +69,10 @@ function App() {
 
       <div className="mb-5">
         <StudentManager />
+      </div>
+
+      <div className="mb-5">
+        <Quiz />
       </div>
     </div>
   );
