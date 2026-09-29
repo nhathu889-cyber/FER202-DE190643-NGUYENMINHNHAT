@@ -3,6 +3,7 @@ import ControlledInput from './components/ControlledInput';
 import ToggleVisibility from './components/ToggleVisibility';
 import TodoList from './components/TodoList';
 import ColorSwitcher from './components/ColorSwitcher';
+import SearchFilter from './components/SearchFilter';
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
 
       <div className="mb-4">
         <ColorSwitcher />
+      </div>
+
+      <div className="mb-4">
+        <SearchFilter />
       </div>
     </div>
   );
