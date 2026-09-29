@@ -7,6 +7,7 @@ import SearchFilter from './components/SearchFilter';
 import DragDropList from './components/DragDropList';
 
 import FaqAccordion from './usestate/FaqAccordion';
+import ReviewForm from './usestate/ReviewForm';
 
 function App() {
   return (
@@ -44,15 +45,19 @@ function App() {
         <DragDropList />
       </div>
 
-      {/* BTVN useState */}
       <hr className="my-5" />
 
+      {/* BTVN */}
       <h1 className="text-center mb-4">
         useState BTVN
       </h1>
 
       <div className="mb-5">
         <FaqAccordion />
+      </div>
+
+      <div className="mb-5">
+        <ReviewForm />
       </div>
     </div>
   );
