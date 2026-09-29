@@ -8,6 +8,7 @@ import DragDropList from './components/DragDropList';
 
 import FaqAccordion from './usestate/FaqAccordion';
 import ReviewForm from './usestate/ReviewForm';
+import BmiCalculator from './usestate/BmiCalculator';
 
 function App() {
   return (
@@ -47,7 +48,6 @@ function App() {
 
       <hr className="my-5" />
 
-      {/* BTVN */}
       <h1 className="text-center mb-4">
         useState BTVN
       </h1>
@@ -58,6 +58,10 @@ function App() {
 
       <div className="mb-5">
         <ReviewForm />
+      </div>
+
+      <div className="mb-5">
+        <BmiCalculator />
       </div>
     </div>
   );
