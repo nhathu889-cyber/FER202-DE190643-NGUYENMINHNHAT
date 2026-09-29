@@ -2,6 +2,7 @@ import Counter from './components/Counter';
 import ControlledInput from './components/ControlledInput';
 import ToggleVisibility from './components/ToggleVisibility';
 import TodoList from './components/TodoList';
+import ColorSwitcher from './components/ColorSwitcher';
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
 
       <div className="mb-4">
         <TodoList />
+      </div>
+
+      <div className="mb-4">
+        <ColorSwitcher />
       </div>
     </div>
   );
