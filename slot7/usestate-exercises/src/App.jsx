@@ -1,13 +1,14 @@
-import { Container } from 'react-bootstrap';
 import Counter from './components/Counter';
 import ControlledInput from './components/ControlledInput';
+import ToggleVisibility from './components/ToggleVisibility';
+import TodoList from './components/TodoList';
 
 function App() {
   return (
-    <Container className="py-4">
-      <h2 className="text-center mb-4">
+    <div className="container py-4">
+      <h1 className="text-center mb-4">
         React useState Exercises
-      </h2>
+      </h1>
 
       <div className="mb-4">
         <Counter />
@@ -16,7 +17,15 @@ function App() {
       <div className="mb-4">
         <ControlledInput />
       </div>
-    </Container>
+
+      <div className="mb-4">
+        <ToggleVisibility />
+      </div>
+
+      <div className="mb-4">
+        <TodoList />
+      </div>
+    </div>
   );
 }
 
