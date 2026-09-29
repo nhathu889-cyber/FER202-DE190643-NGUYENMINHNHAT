@@ -4,6 +4,7 @@ import ToggleVisibility from './components/ToggleVisibility';
 import TodoList from './components/TodoList';
 import ColorSwitcher from './components/ColorSwitcher';
 import SearchFilter from './components/SearchFilter';
+import DragDropList from './components/DragDropList';
 
 function App() {
   return (
@@ -34,6 +35,10 @@ function App() {
 
       <div className="mb-4">
         <SearchFilter />
+      </div>
+
+      <div className="mb-4">
+        <DragDropList />
       </div>
     </div>
   );
