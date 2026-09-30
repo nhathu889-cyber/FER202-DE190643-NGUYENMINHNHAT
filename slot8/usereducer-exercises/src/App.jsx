@@ -1,5 +1,6 @@
 import StepCounter from './usereducer/StepCounter';
 import OrderTracker from './usereducer/OrderTracker';
+import KanbanBoard from './usereducer/KanbanBoard';
 
 function App() {
   return (
@@ -18,6 +19,13 @@ function App() {
       {/* Bài 2 */}
       <div className="mb-5">
         <OrderTracker />
+      </div>
+
+      <hr className="my-5" />
+
+      {/* Bài 3 */}
+      <div className="mb-5">
+        <KanbanBoard />
       </div>
     </div>
   );
