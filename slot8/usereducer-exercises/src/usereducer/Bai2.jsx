@@ -117,7 +117,7 @@ const now = () =>
     minute: '2-digit',
   });
 
-function OrderTracker() {
+function Bai2() {
   const [state, dispatch] = useReducer(
     orderReducer,
     initialState
@@ -251,4 +251,4 @@ function OrderTracker() {
   );
 }
 
-export default OrderTracker;
+export default Bai2;

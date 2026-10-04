@@ -11,21 +11,184 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Button from 'react-bootstrap/Button';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
-import {
-  undoable,
-  createHistory,
-} from './undoable';
+const HISTORY_LIMIT = 20;
 
-import {
-  notesReducer,
-  initialNotes,
-  COLORS,
-} from './notesReducer';
+const undoable = (reducer) => (state, action) => {
+  const { past, present, future } = state;
+
+  switch (action.type) {
+    case 'UNDO': {
+      if (past.length === 0) {
+        return state;
+      }
+
+      return {
+        past: past.slice(0, -1),
+        present: past[past.length - 1],
+        future: [present, ...future],
+      };
+    }
+
+    case 'REDO': {
+      if (future.length === 0) {
+        return state;
+      }
+
+      return {
+        past: [...past, present],
+        present: future[0],
+        future: future.slice(1),
+      };
+    }
+
+    default: {
+      const newPresent = reducer(
+        present,
+        action
+      );
+
+      if (newPresent === present) {
+        return state;
+      }
+
+      return {
+        past: [
+          ...past,
+          present,
+        ].slice(-HISTORY_LIMIT),
+
+        present: newPresent,
+
+        future: [],
+      };
+    }
+  }
+};
+
+const createHistory = (present) => ({
+  past: [],
+  present,
+  future: [],
+});
+
+const COLORS = [
+  '#fff3a3',
+  '#c8f7c5',
+  '#cfe8ff',
+  '#ffd6e0',
+];
+
+const initialNotes = {
+  nextId: 3,
+
+  items: [
+    {
+      id: 1,
+      text: 'Reducer phải là hàm thuần',
+      color: COLORS[0],
+      pinned: true,
+    },
+    {
+      id: 2,
+      text: 'Không sửa trực tiếp state',
+      color: COLORS[2],
+      pinned: false,
+    },
+  ],
+};
+
+const notesReducer = (
+  state,
+  action
+) => {
+  switch (action.type) {
+    case 'ADD_NOTE': {
+      const text =
+        action.payload.text.trim();
+
+      if (!text) {
+        return state;
+      }
+
+      const note = {
+        id: state.nextId,
+        text,
+        color: action.payload.color,
+        pinned: false,
+      };
+
+      return {
+        nextId: state.nextId + 1,
+        items: [
+          note,
+          ...state.items,
+        ],
+      };
+    }
+
+    case 'CHANGE_COLOR':
+      return {
+        ...state,
+
+        items: state.items.map(
+          (note) =>
+            note.id ===
+            action.payload.id
+              ? {
+                  ...note,
+                  color:
+                    action.payload
+                      .color,
+                }
+              : note
+        ),
+      };
+
+    case 'TOGGLE_PIN':
+      return {
+        ...state,
+
+        items: state.items.map(
+          (note) =>
+            note.id === action.payload
+              ? {
+                  ...note,
+                  pinned:
+                    !note.pinned,
+                }
+              : note
+        ),
+      };
+
+    case 'DELETE':
+      return {
+        ...state,
+
+        items: state.items.filter(
+          (note) =>
+            note.id !== action.payload
+        ),
+      };
+
+    case 'CLEAR_ALL':
+      return state.items.length === 0
+        ? state
+        : {
+            ...state,
+            items: [],
+          };
+
+    default:
+      throw new Error(
+        `Action không hợp lệ: ${action.type}`
+      );
+  }
+};
 
 const notesWithHistory =
   undoable(notesReducer);
 
-function NotesBoard() {
+function Bai5() {
   const [history, dispatch] = useReducer(
     notesWithHistory,
     initialNotes,
@@ -293,4 +456,4 @@ function NotesBoard() {
   );
 }
 
-export default NotesBoard;
+export default Bai5;

@@ -63,7 +63,7 @@ const counterReducer = (state, action) => {
   }
 };
 
-function StepCounter() {
+function Bai1() {
   const [state, dispatch] = useReducer(
     counterReducer,
     initialState
@@ -163,4 +163,4 @@ function StepCounter() {
   );
 }
 
-export default StepCounter;
+export default Bai1;
