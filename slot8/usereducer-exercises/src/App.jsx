@@ -1,6 +1,7 @@
 import StepCounter from './usereducer/StepCounter';
 import OrderTracker from './usereducer/OrderTracker';
 import KanbanBoard from './usereducer/KanbanBoard';
+import CourseWizard from './usereducer/CourseWizard';
 
 function App() {
   return (
@@ -26,6 +27,17 @@ function App() {
       {/* Bài 3 */}
       <div className="mb-5">
         <KanbanBoard />
+      </div>
+
+      <hr className="my-5" />
+
+      {/* Bài 4 */}
+      <div className="mb-5">
+        <h2 className="text-center mb-4">
+          Bài 4: Form đăng ký khóa học
+        </h2>
+
+        <CourseWizard />
       </div>
     </div>
   );
