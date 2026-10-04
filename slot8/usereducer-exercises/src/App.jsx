@@ -2,6 +2,7 @@ import StepCounter from './usereducer/StepCounter';
 import OrderTracker from './usereducer/OrderTracker';
 import KanbanBoard from './usereducer/KanbanBoard';
 import CourseWizard from './usereducer/CourseWizard';
+import NotesBoard from './usereducer/NotesBoard';
 
 function App() {
   return (
@@ -38,6 +39,13 @@ function App() {
         </h2>
 
         <CourseWizard />
+      </div>
+
+      <hr className="my-5" />
+
+      {/* Bài 5 */}
+      <div className="mb-5">
+        <NotesBoard />
       </div>
     </div>
   );
