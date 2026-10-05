@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { ThemeContext } from '../context/ThemeContext';
+import { useTheme } from '../contexts/ThemeContext';
 
 function Header() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className={`header ${theme}`}>
