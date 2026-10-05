@@ -52,3 +52,8 @@ button {
 .footer.dark {
   background-color: #111111;
 }
+
+.example-nav { display: flex; flex-wrap: wrap; gap: 12px; padding: 20px; background: #e8edf3; }
+.example-nav button[aria-pressed='true'] { background: #2458b8; color: white; }
+.cart-example { padding: 0 24px 24px; }
+.cart-example button { margin: 6px; }
