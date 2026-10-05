@@ -22,7 +22,7 @@ export default defineConfig([
     files: ['src/**/contexts/*Context.jsx'],
     rules: {
       'react-refresh/only-export-components': ['error', {
-        allowExportNames: ['useTheme', 'useCart', 'useCartDispatch'],
+        allowExportNames: ['useTheme', 'useCart', 'useCartDispatch', 'useAuth'],
       }],
     },
   },
