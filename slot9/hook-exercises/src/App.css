@@ -4,3 +4,16 @@
   padding: 2rem;
   text-align: center;
 }
+
+.exercise-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.exercise-menu button {
+  padding: 8px 16px;
+  cursor: pointer;
+}
