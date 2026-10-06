@@ -5,20 +5,20 @@ import Button from 'react-bootstrap/Button';
 const QuantityPicker = ({ min = 1, max = 10 }) => {
   const [quantity, setQuantity] = useState(min);
 
-  const decrease = () =>
+  const decrease = () => {
     setQuantity((q) => Math.max(q - 1, min));
+  };
 
-  const increase = () =>
+  const increase = () => {
     setQuantity((q) => Math.min(q + 1, max));
+  };
 
-  // Sai: cả 3 lần đều đọc quantity cũ
   const addThreeWrong = () => {
     setQuantity(Math.min(quantity + 1, max));
     setQuantity(Math.min(quantity + 1, max));
     setQuantity(Math.min(quantity + 1, max));
   };
 
-  // Đúng: mỗi lần nhận giá trị mới nhất
   const addThree = () => {
     increase();
     increase();
