@@ -8,9 +8,11 @@ import Bai4 from './bai4/Bai4';
 import Bai5 from './bai5/Bai5';
 import Bai6 from './bai6/Bai6';
 import Bai7 from './bai7/Bai7';
+import Bai8 from './bai8/Bai8';
 
 const App = () => {
-  const [currentBai, setCurrentBai] = useState(7);
+  const [currentBai, setCurrentBai] =
+    useState(8);
 
   return (
     <>
@@ -42,6 +44,10 @@ const App = () => {
         <button onClick={() => setCurrentBai(7)}>
           Bài 7
         </button>
+
+        <button onClick={() => setCurrentBai(8)}>
+          Bài 8
+        </button>
       </div>
 
       <hr />
@@ -53,6 +59,7 @@ const App = () => {
       {currentBai === 5 && <Bai5 />}
       {currentBai === 6 && <Bai6 />}
       {currentBai === 7 && <Bai7 />}
+      {currentBai === 8 && <Bai8 />}
     </>
   );
 };
