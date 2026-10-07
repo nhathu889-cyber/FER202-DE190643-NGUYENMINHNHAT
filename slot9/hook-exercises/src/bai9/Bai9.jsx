@@ -3,10 +3,8 @@ import Col from 'react-bootstrap/Col';
 import Alert from 'react-bootstrap/Alert';
 
 import { ThemeProvider } from './context/ThemeContext';
-import {
-  AuthProvider,
-  useAuth,
-} from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
+import { useAuth } from './context/useAuth';
 
 import Layout from './components/Layout';
 

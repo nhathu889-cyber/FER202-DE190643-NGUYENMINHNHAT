@@ -24,6 +24,7 @@ const TodoList = () => {
   const [filter, setFilter] = useState('all');
   const [editingId, setEditingId] = useState(null);
   const [editText, setEditText] = useState('');
+  const [editError, setEditError] = useState('');
 
   const validateTitle = (text, ignoreId = null) => {
     const trimmed = text.trim();
@@ -91,13 +92,13 @@ const TodoList = () => {
   const startEdit = (todo) => {
     setEditingId(todo.id);
     setEditText(todo.title);
-    setError('');
+    setEditError('');
   };
 
   const cancelEdit = () => {
     setEditingId(null);
     setEditText('');
-    setError('');
+    setEditError('');
   };
 
   const saveEdit = () => {
@@ -111,7 +112,7 @@ const TodoList = () => {
     );
 
     if (message) {
-      setError(message);
+      setEditError(message);
       return;
     }
 
@@ -128,7 +129,7 @@ const TodoList = () => {
 
     setEditingId(null);
     setEditText('');
-    setError('');
+    setEditError('');
   };
 
   const handleEditKeyDown = (event) => {
@@ -236,12 +237,12 @@ const TodoList = () => {
                 <Form.Control
                   autoFocus
                   value={editText}
-                  isInvalid={Boolean(error)}
+                  isInvalid={Boolean(editError)}
                   onChange={(event) => {
                     setEditText(
                       event.target.value
                     );
-                    setError('');
+                    setEditError('');
                   }}
                   onKeyDown={
                     handleEditKeyDown
@@ -278,9 +279,9 @@ const TodoList = () => {
           ))}
         </ListGroup>
 
-        {editingId !== null && error && (
+        {editingId !== null && editError && (
           <div className="text-danger mb-2">
-            {error}
+            {editError}
           </div>
         )}
 

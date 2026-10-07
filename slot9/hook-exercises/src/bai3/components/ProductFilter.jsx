@@ -39,7 +39,7 @@ const ProductFilter = ({ products, onAddToCart }) => {
     .filter(
       (p) =>
         category === ALL ||
-        p.category?.name === category
+        (p.category?.name ?? 'Khác') === category
     )
     .filter((p) => !onlyInStock || p.inStock)
     .sort(sorters[sortBy]);

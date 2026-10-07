@@ -1,6 +1,4 @@
 import {
-  createContext,
-  useContext,
   useReducer,
 } from 'react';
 
@@ -11,7 +9,7 @@ import {
   getCartTotals,
 } from '../../bai7/reducers/cartReducer';
 
-const CartContext = createContext(null);
+import { CartContext } from './useCart';
 
 export const CartProvider = ({ children }) => {
   const [cart, dispatch] = useReducer(
@@ -47,16 +45,4 @@ export const CartProvider = ({ children }) => {
       {children}
     </CartContext.Provider>
   );
-};
-
-export const useCart = () => {
-  const context = useContext(CartContext);
-
-  if (!context) {
-    throw new Error(
-      'useCart phải được sử dụng bên trong CartProvider'
-    );
-  }
-
-  return context;
 };

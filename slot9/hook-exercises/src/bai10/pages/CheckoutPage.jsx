@@ -8,10 +8,11 @@ import Button from 'react-bootstrap/Button';
 import Alert from 'react-bootstrap/Alert';
 import Table from 'react-bootstrap/Table';
 
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/useAuth';
+import { useCart } from '../context/useCart';
 
 import { formatVND } from '../../utils/format';
+import InputField from '../../bai5/components/InputField';
 
 const validateCheckout = (values) => {
   const errors = {};
@@ -196,73 +197,23 @@ const CheckoutPage = ({ onNavigate }) => {
                 noValidate
                 onSubmit={handleSubmit}
               >
-                <Form.Group className="mb-3">
-                  <Form.Label>
-                    Người nhận
-                  </Form.Label>
-
-                  <Form.Control
-                    type="text"
-                    name="receiver"
-                    value={values.receiver}
-                    onChange={handleChange}
-                    isInvalid={
-                      Boolean(
-                        errorOf('receiver')
-                      )
-                    }
-                  />
-
-                  <Form.Control.Feedback type="invalid">
-                    {errorOf('receiver')}
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>
-                    Số điện thoại
-                  </Form.Label>
-
-                  <Form.Control
-                    type="tel"
-                    name="phone"
-                    placeholder="09xxxxxxxx"
-                    value={values.phone}
-                    onChange={handleChange}
-                    isInvalid={
-                      Boolean(
-                        errorOf('phone')
-                      )
-                    }
-                  />
-
-                  <Form.Control.Feedback type="invalid">
-                    {errorOf('phone')}
-                  </Form.Control.Feedback>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                  <Form.Label>
-                    Địa chỉ
-                  </Form.Label>
-
-                  <Form.Control
-                    as="textarea"
-                    rows={2}
-                    name="address"
-                    value={values.address}
-                    onChange={handleChange}
-                    isInvalid={
-                      Boolean(
-                        errorOf('address')
-                      )
-                    }
-                  />
-
-                  <Form.Control.Feedback type="invalid">
-                    {errorOf('address')}
-                  </Form.Control.Feedback>
-                </Form.Group>
+                <InputField
+                  id="checkout-receiver" label="Người nhận" name="receiver"
+                  value={values.receiver} onChange={handleChange}
+                  error={errorOf('receiver')} required
+                />
+                <InputField
+                  id="checkout-phone" label="Số điện thoại" name="phone"
+                  type="tel" placeholder="09xxxxxxxx"
+                  value={values.phone} onChange={handleChange}
+                  error={errorOf('phone')} required
+                />
+                <InputField
+                  id="checkout-address" label="Địa chỉ" name="address"
+                  as="textarea" rows={2}
+                  value={values.address} onChange={handleChange}
+                  error={errorOf('address')} required
+                />
 
                 <Form.Group className="mb-3">
                   <Form.Label>
@@ -328,20 +279,11 @@ const CheckoutPage = ({ onNavigate }) => {
                   )}
                 </Form.Group>
 
-                <Form.Group className="mb-3">
-                  <Form.Label>
-                    Ghi chú
-                  </Form.Label>
-
-                  <Form.Control
-                    as="textarea"
-                    rows={2}
-                    name="note"
-                    value={values.note}
-                    onChange={handleChange}
-                    placeholder="Không bắt buộc"
-                  />
-                </Form.Group>
+                <InputField
+                  id="checkout-note" label="Ghi chú" name="note"
+                  as="textarea" rows={2} placeholder="Không bắt buộc"
+                  value={values.note} onChange={handleChange}
+                />
 
                 <Button type="submit">
                   Đặt hàng

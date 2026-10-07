@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 
 import CartSummary from '../../bai7/components/CartSummary';
-import { useCart } from '../context/CartContext';
+import { useCart } from '../context/useCart';
 
 const CartPage = ({ onNavigate }) => {
   const {

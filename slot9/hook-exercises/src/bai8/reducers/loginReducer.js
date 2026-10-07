@@ -54,6 +54,7 @@ export const loginReducer = (state, action) => {
     case 'BLUR_FIELD':
       return {
         ...state,
+        errors: validateLogin(state.values),
         touched: {
           ...state.touched,
           [action.payload]: true,

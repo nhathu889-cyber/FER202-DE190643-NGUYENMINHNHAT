@@ -1,7 +1,7 @@
 import Container from 'react-bootstrap/Container';
 
 import Header from './Header';
-import { useTheme } from '../context/ThemeContext';
+import { useTheme } from '../context/useTheme';
 
 const Layout = ({ children }) => {
   const { theme } = useTheme();

@@ -4,9 +4,9 @@ import Nav from 'react-bootstrap/Nav';
 import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 
-import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
-import { useCart } from '../context/CartContext';
+import { useTheme } from '../context/useTheme';
+import { useAuth } from '../context/useAuth';
+import { useCart } from '../context/useCart';
 
 const Header = ({
   currentPage,

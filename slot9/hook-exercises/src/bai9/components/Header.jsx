@@ -2,8 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
-import { useTheme } from '../context/ThemeContext';
-import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/useTheme';
+import { useAuth } from '../context/useAuth';
 
 const Header = () => {
   const {

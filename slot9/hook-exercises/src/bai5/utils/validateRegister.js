@@ -45,9 +45,14 @@ export const validateRegister = (values) => {
   }
 
   if (values.birthday) {
-    const age =
-      new Date().getFullYear() -
-      new Date(values.birthday).getFullYear();
+    const today = new Date();
+    const birthday = new Date(`${values.birthday}T00:00:00`);
+    let age = today.getFullYear() - birthday.getFullYear();
+    const monthDifference = today.getMonth() - birthday.getMonth();
+    if (monthDifference < 0 ||
+        (monthDifference === 0 && today.getDate() < birthday.getDate())) {
+      age -= 1;
+    }
 
     if (age < 16) {
       errors.birthday =

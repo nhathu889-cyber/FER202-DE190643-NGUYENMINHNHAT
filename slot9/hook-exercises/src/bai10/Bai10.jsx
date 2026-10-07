@@ -4,10 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import { ThemeProvider } from './context/ThemeContext';
-import {
-  AuthProvider,
-  useAuth,
-} from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
+import { useAuth } from './context/useAuth';
 import { CartProvider } from './context/CartContext';
 
 import Layout from './components/Layout';

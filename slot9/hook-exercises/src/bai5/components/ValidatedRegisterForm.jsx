@@ -173,6 +173,7 @@ const ValidatedRegisterForm = () => {
                 label="Tôi đồng ý điều khoản"
                 checked={values.agree}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 isInvalid={Boolean(
                   showError('agree')
                 )}
