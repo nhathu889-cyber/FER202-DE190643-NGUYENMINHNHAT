@@ -6,6 +6,7 @@ import PostList from './components/PostList';
 import CreatePost from './components/CreatePost';
 import UpdatePost from './components/UpdatePost';
 import PatchPost from './components/PatchPost';
+import DeletePost from './components/DeletePost';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
 
       <hr />
       <PatchPost />
+
+      <hr />
+      <DeletePost />
     </Container>
   );
 }
