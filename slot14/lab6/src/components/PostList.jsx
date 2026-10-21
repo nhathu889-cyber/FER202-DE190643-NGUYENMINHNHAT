@@ -8,16 +8,27 @@ function PostList() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    axios
-      .get('https://jsonplaceholder.typicode.com/posts', {
-        params: {
-          userId: 1,
-          _limit: 5,
-        },
-      })
-      .then((response) => setPosts(response.data))
-      .catch((error) => setError(error.message))
-      .finally(() => setLoading(false));
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(
+          'https://jsonplaceholder.typicode.com/posts',
+          {
+            params: {
+              userId: 1,
+              _limit: 5,
+            },
+          }
+        );
+
+        setPosts(response.data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
   }, []);
 
   if (loading) return <p>Loading...</p>;
@@ -26,6 +37,7 @@ function PostList() {
   return (
     <div>
       <h2>GET – Danh sách 5 bài viết</h2>
+
       <ul>
         {posts.map((post) => (
           <li key={post.id}>

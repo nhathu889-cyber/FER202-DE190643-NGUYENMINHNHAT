@@ -11,7 +11,6 @@ function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setSubmitting(true);
     setResult(null);
     setError(null);
@@ -19,11 +18,7 @@ function CreatePost() {
     try {
       const response = await axios.post(
         'https://jsonplaceholder.typicode.com/posts',
-        {
-          title,
-          body,
-          userId: 1,
-        }
+        { title, body, userId: 1 }
       );
 
       setResult({
@@ -42,65 +37,40 @@ function CreatePost() {
 
   return (
     <div>
-      <h2>POST – Tạo bài viết mới</h2>
+      <h2>POST – Tạo bài viết</h2>
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="post-title" className="form-label">
-            Title
-          </label>
+          <label className="form-label">Title</label>
           <input
-            id="post-title"
-            type="text"
             className="form-control"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Nhập tiêu đề"
             required
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="post-body" className="form-label">
-            Body
-          </label>
+          <label className="form-label">Body</label>
           <textarea
-            id="post-body"
             className="form-control"
-            rows="4"
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            placeholder="Nhập nội dung bài viết"
             required
           />
         </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary"
-          disabled={submitting}
-        >
+        <button className="btn btn-primary" disabled={submitting}>
           {submitting ? 'Đang gửi...' : 'Tạo bài viết'}
         </button>
       </form>
 
-      {error && (
-        <div className="alert alert-danger mt-3">
-          Error: {error}
-        </div>
-      )}
+      {error && <p className="text-danger mt-3">Error: {error}</p>}
 
       {result && (
         <div className="mt-3">
-          <div className="alert alert-success">
-            Tạo bài viết thành công!
-          </div>
-
           <p>Status: {result.status}</p>
-
-          <pre className="bg-light p-3 border rounded">
-            {JSON.stringify(result.data, null, 2)}
-          </pre>
+          <pre>{JSON.stringify(result.data, null, 2)}</pre>
         </div>
       )}
     </div>
@@ -108,3 +78,4 @@ function CreatePost() {
 }
 
 export default CreatePost;
+
