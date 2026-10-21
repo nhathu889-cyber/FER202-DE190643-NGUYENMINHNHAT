@@ -7,6 +7,7 @@ import CreatePost from './components/CreatePost';
 import UpdatePost from './components/UpdatePost';
 import PatchPost from './components/PatchPost';
 import DeletePost from './components/DeletePost';
+import RequestConfig from './components/RequestConfig';
 
 function App() {
   return (
@@ -30,6 +31,9 @@ function App() {
 
       <hr />
       <DeletePost />
+
+      <hr />
+      <RequestConfig />
     </Container>
   );
 }
