@@ -1,12 +1,13 @@
 
 import { useState } from 'react';
-import axios from 'axios';
+import axiosClient from '../api/axiosClient';
 
 function RequestConfig() {
   const [posts, setPosts] = useState([]);
   const [status, setStatus] = useState(null);
   const [contentType, setContentType] = useState('');
   const [totalCount, setTotalCount] = useState('');
+  const [duration, setDuration] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -17,18 +18,19 @@ function RequestConfig() {
     setStatus(null);
     setContentType('');
     setTotalCount('');
+    setDuration(null);
 
     try {
-      const response = await axios({
+      const response = await axiosClient({
         method: 'get',
-        url: 'https://jsonplaceholder.typicode.com/posts',
+        url: '/posts',
         params: {
           _page: 1,
           _limit: 3,
         },
         headers: {
           Accept: 'application/json',
-          Authorization: 'Bearer demo-token-123',
+          'X-Client': 'FER202',
         },
         timeout: 5000,
       });
@@ -37,16 +39,9 @@ function RequestConfig() {
       setStatus(response.status);
       setContentType(response.headers['content-type'] || '');
       setTotalCount(response.headers['x-total-count'] || '');
+      setDuration(response.duration);
     } catch (err) {
-      if (err.code === 'ECONNABORTED') {
-        setError('Request timeout: Quá thời gian 5000ms.');
-      } else if (err.response) {
-        setError(`HTTP Error: ${err.response.status} - ${err.message}`);
-      } else if (err.request) {
-        setError('Network Error: Không nhận được phản hồi từ server.');
-      } else {
-        setError(`Error: ${err.message}`);
-      }
+      setError(err.userMessage || err.message);
     } finally {
       setLoading(false);
     }
@@ -80,6 +75,7 @@ function RequestConfig() {
           </div>
 
           <p><strong>Status:</strong> {status}</p>
+          <p><strong>Duration:</strong> {duration} ms</p>
           <p><strong>Content-Type:</strong> {contentType}</p>
           <p><strong>X-Total-Count:</strong> {totalCount || 'Không có'}</p>
 

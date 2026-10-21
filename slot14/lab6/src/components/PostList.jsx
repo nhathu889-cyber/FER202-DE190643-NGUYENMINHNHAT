@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import postApi from '../api/postApi';
 
 function PostList() {
   const [posts, setPosts] = useState([]);
@@ -10,19 +10,14 @@ function PostList() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(
-          'https://jsonplaceholder.typicode.com/posts',
-          {
-            params: {
-              userId: 1,
-              _limit: 5,
-            },
-          }
-        );
+        const response = await postApi.getAll({
+          userId: 1,
+          _limit: 5,
+        });
 
         setPosts(response.data);
       } catch (err) {
-        setError(err.message);
+        setError(err.userMessage || err.message);
       } finally {
         setLoading(false);
       }
@@ -36,7 +31,7 @@ function PostList() {
 
   return (
     <div>
-      <h2>GET – Danh sách 5 bài viết</h2>
+      <h2>GET – Danh sách bài viết của user 1</h2>
 
       <ul>
         {posts.map((post) => (

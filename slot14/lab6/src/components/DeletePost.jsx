@@ -1,27 +1,20 @@
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
-
-const API = 'https://jsonplaceholder.typicode.com/posts';
+import postApi from '../api/postApi';
 
 function DeletePost() {
   const [posts, setPosts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [deletingId, setDeletingId] = useState(null);
   const [message, setMessage] = useState('');
   const [error, setError] = useState(null);
+  const [deletingId, setDeletingId] = useState(null);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(API, {
-          params: { _limit: 5 },
-        });
+        const response = await postApi.getAll({ _limit: 5 });
         setPosts(response.data);
       } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        setError(err.userMessage || err.message);
       }
     };
 
@@ -33,47 +26,40 @@ function DeletePost() {
 
     setDeletingId(id);
     setError(null);
-    setMessage('');
 
     try {
-      const response = await axios.delete(`${API}/${id}`);
+      const response = await postApi.remove(id);
 
-      setPosts((prev) =>
-        prev.filter((post) => post.id !== id)
-      );
-
+      setPosts((prev) => prev.filter((p) => p.id !== id));
       setMessage(`Đã xóa bài #${id} – Status: ${response.status}`);
     } catch (err) {
-      setError(err.message);
+      setError(err.userMessage || err.message);
     } finally {
       setDeletingId(null);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
-
   return (
     <div>
       <h2>DELETE – Xóa bài viết</h2>
 
-      {error && <p className="text-danger">Error: {error}</p>}
       {message && <p className="text-success">{message}</p>}
+      {error && <p className="text-danger">Error: {error}</p>}
 
       <ul className="list-group">
         {posts.map((post) => (
           <li
             key={post.id}
-            className="list-group-item d-flex justify-content-between align-items-center"
+            className="list-group-item d-flex justify-content-between align-items-center text-start"
           >
             <span>#{post.id} – {post.title}</span>
 
             <button
-              type="button"
-              className="btn btn-danger btn-sm"
-              disabled={deletingId !== null}
+              className="btn btn-danger btn-sm ms-3"
               onClick={() => handleDelete(post.id)}
+              disabled={deletingId !== null}
             >
-              {deletingId === post.id ? 'Đang xóa...' : 'Delete'}
+              {deletingId === post.id ? 'Đang xóa...' : 'Xóa'}
             </button>
           </li>
         ))}

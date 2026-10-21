@@ -1,25 +1,26 @@
 
 import { useState } from 'react';
-import axios from 'axios';
+import postApi from '../api/postApi';
 
 function CreatePost() {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
-    setResult(null);
     setError(null);
+    setResult(null);
 
     try {
-      const response = await axios.post(
-        'https://jsonplaceholder.typicode.com/posts',
-        { title, body, userId: 1 }
-      );
+      const response = await postApi.create({
+        title,
+        body,
+        userId: 1,
+      });
 
       setResult({
         status: response.status,
@@ -29,7 +30,7 @@ function CreatePost() {
       setTitle('');
       setBody('');
     } catch (err) {
-      setError(err.message);
+      setError(err.userMessage || err.message);
     } finally {
       setSubmitting(false);
     }
@@ -41,9 +42,9 @@ function CreatePost() {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label className="form-label">Title</label>
           <input
             className="form-control"
+            placeholder="Tiêu đề bài viết"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             required
@@ -51,16 +52,20 @@ function CreatePost() {
         </div>
 
         <div className="mb-3">
-          <label className="form-label">Body</label>
           <textarea
             className="form-control"
+            placeholder="Nội dung bài viết"
             value={body}
             onChange={(e) => setBody(e.target.value)}
             required
           />
         </div>
 
-        <button className="btn btn-primary" disabled={submitting}>
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={submitting}
+        >
           {submitting ? 'Đang gửi...' : 'Tạo bài viết'}
         </button>
       </form>
@@ -70,7 +75,9 @@ function CreatePost() {
       {result && (
         <div className="mt-3">
           <p>Status: {result.status}</p>
-          <pre>{JSON.stringify(result.data, null, 2)}</pre>
+          <pre className="text-start">
+            {JSON.stringify(result.data, null, 2)}
+          </pre>
         </div>
       )}
     </div>
@@ -78,4 +85,3 @@ function CreatePost() {
 }
 
 export default CreatePost;
-

@@ -1,39 +1,35 @@
 
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import postApi from '../api/postApi';
 
-const URL = 'https://jsonplaceholder.typicode.com/posts/1';
+const POST_ID = 1;
 
 function UpdatePost() {
   const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [saving, setSaving] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(URL);
+        const response = await postApi.getById(POST_ID);
         setPost(response.data);
       } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
+        setError(err.userMessage || err.message);
       }
     };
 
     fetchPost();
   }, []);
 
-  const handleUpdate = async (e) => {
-    e.preventDefault();
+  const handleUpdate = async () => {
     setSaving(true);
     setError(null);
     setResult(null);
 
     try {
-      const response = await axios.put(URL, {
+      const response = await postApi.update(POST_ID, {
         id: post.id,
         userId: post.userId,
         title: post.title,
@@ -45,56 +41,51 @@ function UpdatePost() {
         data: response.data,
       });
     } catch (err) {
-      setError(err.message);
+      setError(err.userMessage || err.message);
     } finally {
       setSaving(false);
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (!post && error) return <p>Error: {error}</p>;
+  if (!post) return <p>Loading...</p>;
 
   return (
     <div>
-      <h2>PUT – Cập nhật bài viết #1</h2>
+      <h2>PUT – Cập nhật bài viết #{post.id}</h2>
 
-      {error && <p className="text-danger">Error: {error}</p>}
+      <input
+        className="form-control mb-3"
+        value={post.title}
+        onChange={(e) =>
+          setPost({ ...post, title: e.target.value })
+        }
+      />
 
-      {post && (
-        <form onSubmit={handleUpdate}>
-          <div className="mb-3">
-            <label className="form-label">Title</label>
-            <input
-              className="form-control"
-              value={post.title}
-              onChange={(e) =>
-                setPost({ ...post, title: e.target.value })
-              }
-              required
-            />
-          </div>
+      <textarea
+        className="form-control mb-3"
+        value={post.body}
+        onChange={(e) =>
+          setPost({ ...post, body: e.target.value })
+        }
+      />
 
-          <div className="mb-3">
-            <label className="form-label">Body</label>
-            <textarea
-              className="form-control"
-              value={post.body}
-              onChange={(e) =>
-                setPost({ ...post, body: e.target.value })
-              }
-              required
-            />
-          </div>
+      <button
+        className="btn btn-primary"
+        onClick={handleUpdate}
+        disabled={saving}
+      >
+        {saving ? 'Đang lưu...' : 'Cập nhật (PUT)'}
+      </button>
 
-          <button className="btn btn-warning" disabled={saving}>
-            {saving ? 'Đang lưu...' : 'Cập nhật (PUT)'}
-          </button>
-        </form>
-      )}
+      {error && <p className="text-danger mt-3">Error: {error}</p>}
 
       {result && (
         <div className="mt-3">
           <p>Status: {result.status}</p>
-          <pre>{JSON.stringify(result.data, null, 2)}</pre>
+          <pre className="text-start">
+            {JSON.stringify(result.data, null, 2)}
+          </pre>
         </div>
       )}
     </div>
@@ -102,4 +93,3 @@ function UpdatePost() {
 }
 
 export default UpdatePost;
-
