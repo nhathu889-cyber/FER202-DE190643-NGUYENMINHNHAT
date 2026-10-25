@@ -3,7 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import postApi from '../api/postApi';
 
-function AxiosDemo() {
+import PostCard from './common/PostCard';
+import LoadingSpinner from './common/LoadingSpinner';
+import ErrorAlert from './common/ErrorAlert';
+
+export default function AxiosDemo() {
   const [postId, setPostId] = useState(1);
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -13,7 +17,7 @@ function AxiosDemo() {
   useEffect(() => {
     const controller = new AbortController();
 
-    const fetchPost = async () => {
+    async function fetchPost() {
       setLoading(true);
       setError(null);
 
@@ -29,7 +33,11 @@ function AxiosDemo() {
           duration: response.duration,
         });
       } catch (err) {
-        if (axios.isCancel(err)) {
+        if (
+          axios.isCancel(err) ||
+          err.code === 'ERR_CANCELED' ||
+          controller.signal.aborted
+        ) {
           return;
         }
 
@@ -45,35 +53,41 @@ function AxiosDemo() {
           setLoading(false);
         }
       }
-    };
+    }
 
     fetchPost();
 
-    return () => {
-      controller.abort();
-    };
+    return () => controller.abort();
   }, [postId]);
 
   const handleIdChange = (event) => {
-    const value = Number(event.target.value);
+    const value = event.target.value;
 
-    if (event.target.value === '') {
+    if (value === '') {
       setPostId('');
       return;
     }
 
-    if (Number.isInteger(value) && value >= 1 && value <= 100) {
-      setPostId(value);
+    const number = Number(value);
+
+    if (
+      Number.isInteger(number) &&
+      number >= 1 &&
+      number <= 100
+    ) {
+      setPostId(number);
     }
   };
 
   return (
-    <section className="my-4">
-      <h2>TODO 4 - Chọn ID và hủy request</h2>
+    <section className="container my-4">
+      <h2 className="mb-3">
+        TODO 4–5: Axios và React-Bootstrap
+      </h2>
 
       <div className="mb-3">
         <label htmlFor="postId" className="form-label">
-          Post ID (1–100)
+          Chọn Post ID (1–100)
         </label>
 
         <input
@@ -85,41 +99,30 @@ function AxiosDemo() {
           value={postId}
           onChange={handleIdChange}
         />
+
+        <div className="form-text">
+          Chọn ID để tải bài viết tương ứng.
+        </div>
       </div>
 
       {loading && (
-        <p className="text-primary">Đang tải bài viết...</p>
+        <LoadingSpinner text="Đang tải bài viết..." />
       )}
 
-      {error && (
-        <div className="alert alert-danger">
-          {error}
-        </div>
+      {!loading && (
+        <ErrorAlert
+          message={error}
+          onRetry={() => {
+            setPostId((current) => current);
+            setError(null);
+            setLoading(true);
+          }}
+        />
       )}
 
-      {!loading && data && (
-        <div className="card">
-          <div className="card-header">
-            Bài viết #{data.id}
-          </div>
-
-          <div className="card-body">
-            <h3 className="card-title">{data.title}</h3>
-            <p className="card-text">{data.body}</p>
-
-            {meta && (
-              <p className="text-muted mb-0">
-                HTTP {meta.status}
-                {meta.duration != null
-                  ? ` · ${meta.duration} ms`
-                  : ''}
-              </p>
-            )}
-          </div>
-        </div>
+      {!loading && !error && data && (
+        <PostCard post={data} meta={meta} />
       )}
     </section>
   );
 }
-
-export default AxiosDemo;
