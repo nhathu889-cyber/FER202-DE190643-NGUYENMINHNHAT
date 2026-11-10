@@ -5,11 +5,15 @@ import TodoForm from './components/TodoForm.jsx';
 import TodoList from './components/TodoList.jsx';
 import UserList from './components/UserList.jsx';
 import UserPosts from './components/UserPosts.jsx';
+import Cart from './components/Cart.jsx';
+import CartBadge from './components/CartBadge.jsx';
+import ProductList from './components/ProductList.jsx';
 
 export default function App() {
   const [activeExercise, setActiveExercise] = useState('users');
   const isTodoExercise = activeExercise === 'todos';
   const isCounterExercise = activeExercise === 'counter';
+  const isShopExercise = activeExercise === 'shop';
 
   return (
     <main className="app-shell">
@@ -53,13 +57,30 @@ export default function App() {
           >
             Bài 3 · Users
           </button>
+          <button
+            id="shop-tab"
+            className={`exercise-tab${isShopExercise ? ' active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={isShopExercise}
+            aria-controls="exercise-panel"
+            onClick={() => setActiveExercise('shop')}
+          >
+            Bài 4 · Shop
+          </button>
         </div>
         <section
           id="exercise-panel"
           className="exercise-panel"
           role="tabpanel"
           aria-labelledby={
-            isTodoExercise ? 'todos-tab' : isCounterExercise ? 'counter-tab' : 'users-tab'
+            isTodoExercise
+              ? 'todos-tab'
+              : isCounterExercise
+                ? 'counter-tab'
+                : activeExercise === 'users'
+                  ? 'users-tab'
+                  : 'shop-tab'
           }
         >
           {isTodoExercise ? (
@@ -79,7 +100,7 @@ export default function App() {
             </section>
           ) : isCounterExercise ? (
             <Counter />
-          ) : (
+          ) : activeExercise === 'users' ? (
             <section className="users-card mx-auto shadow-sm" aria-labelledby="users-heading">
               <header className="users-card-header">
                 <span className="counter-mark" aria-hidden="true">U</span>
@@ -97,6 +118,31 @@ export default function App() {
                 <div className="posts-column">
                   <UserPosts />
                 </div>
+              </div>
+            </section>
+          ) : (
+            <section className="shop-card mx-auto" aria-labelledby="shop-heading">
+              <header className="shop-header">
+                <div>
+                  <span className="shop-kicker">REDUX TOOLKIT · CREATE SLICE</span>
+                  <h2 id="shop-heading">Mini Store</h2>
+                  <p>Sản phẩm và giỏ hàng cùng cập nhật từ Redux store.</p>
+                </div>
+                <CartBadge />
+              </header>
+              <div className="shop-layout">
+                <div className="shop-products">
+                  <ProductList />
+                </div>
+                <aside className="shop-cart" aria-labelledby="cart-heading">
+                  <header className="shop-section-heading">
+                    <div>
+                      <span className="shop-kicker">ĐƠN HÀNG</span>
+                      <h2 id="cart-heading">Giỏ hàng</h2>
+                    </div>
+                  </header>
+                  <Cart />
+                </aside>
               </div>
             </section>
           )}
