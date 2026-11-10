@@ -8,12 +8,28 @@ import UserPosts from './components/UserPosts.jsx';
 import Cart from './components/Cart.jsx';
 import CartBadge from './components/CartBadge.jsx';
 import ProductList from './components/ProductList.jsx';
+import StudentFormModal from './components/StudentFormModal.jsx';
+import StudentTable from './components/StudentTable.jsx';
+import Toolbar from './components/Toolbar.jsx';
 
 export default function App() {
-  const [activeExercise, setActiveExercise] = useState('users');
+  const [activeExercise, setActiveExercise] = useState('students');
+  const [showStudentModal, setShowStudentModal] = useState(false);
+  const [editingStudent, setEditingStudent] = useState(null);
   const isTodoExercise = activeExercise === 'todos';
   const isCounterExercise = activeExercise === 'counter';
   const isShopExercise = activeExercise === 'shop';
+  const isStudentExercise = activeExercise === 'students';
+
+  const openAddStudent = () => {
+    setEditingStudent(null);
+    setShowStudentModal(true);
+  };
+
+  const openEditStudent = (student) => {
+    setEditingStudent(student);
+    setShowStudentModal(true);
+  };
 
   return (
     <main className="app-shell">
@@ -68,6 +84,17 @@ export default function App() {
           >
             Bài 4 · Shop
           </button>
+          <button
+            id="students-tab"
+            className={`exercise-tab${isStudentExercise ? ' active' : ''}`}
+            type="button"
+            role="tab"
+            aria-selected={isStudentExercise}
+            aria-controls="exercise-panel"
+            onClick={() => setActiveExercise('students')}
+          >
+            Bài 5 · Sinh viên
+          </button>
         </div>
         <section
           id="exercise-panel"
@@ -80,7 +107,9 @@ export default function App() {
                 ? 'counter-tab'
                 : activeExercise === 'users'
                   ? 'users-tab'
-                  : 'shop-tab'
+                    : isShopExercise
+                      ? 'shop-tab'
+                      : 'students-tab'
           }
         >
           {isTodoExercise ? (
@@ -120,7 +149,7 @@ export default function App() {
                 </div>
               </div>
             </section>
-          ) : (
+          ) : isShopExercise ? (
             <section className="shop-card mx-auto" aria-labelledby="shop-heading">
               <header className="shop-header">
                 <div>
@@ -144,6 +173,26 @@ export default function App() {
                   <Cart />
                 </aside>
               </div>
+            </section>
+          ) : (
+            <section className="students-card mx-auto" aria-labelledby="students-heading">
+              <header className="students-header">
+                <span className="counter-mark" aria-hidden="true">SV</span>
+                <div>
+                  <span className="shop-kicker">REDUX TOOLKIT · CREATE ASYNC THUNK</span>
+                  <h2 id="students-heading">Quản lý sinh viên</h2>
+                  <p>CRUD với API json-server, tìm kiếm và sắp xếp danh sách.</p>
+                </div>
+              </header>
+              <div className="students-content">
+                <Toolbar onAdd={openAddStudent} />
+                <StudentTable onEdit={openEditStudent} />
+              </div>
+              <StudentFormModal
+                show={showStudentModal}
+                onHide={() => setShowStudentModal(false)}
+                editing={editingStudent}
+              />
             </section>
           )}
         </section>

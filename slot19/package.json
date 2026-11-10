@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "json-server database.json --port 9999 --host 127.0.0.1",
+    "start": "concurrently -k -n API,WEB -c magenta,cyan \"npm run server\" \"npm run dev\"",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -21,6 +23,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^6.1.2",
+    "concurrently": "^9.2.1",
+    "json-server": "^1.0.0-beta.3",
     "vite": "^8.3.5"
   }
 }

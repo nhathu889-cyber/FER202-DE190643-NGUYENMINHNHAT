@@ -833,6 +833,135 @@ input {
   font-size: 0.78rem;
 }
 
+.students-card {
+  max-width: 1180px;
+  overflow: hidden;
+  border: 1px solid #e8ecf4;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.students-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 21px 25px;
+  border-bottom: 1px solid #edf0f6;
+}
+
+.students-header h2 {
+  margin: 6px 0 3px;
+  color: #172033;
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.students-header p {
+  margin: 0;
+  color: #8791a3;
+  font-size: 0.81rem;
+}
+
+.students-header .counter-mark {
+  flex: 0 0 auto;
+  font-size: 0.9rem;
+}
+
+.students-content {
+  padding: 22px 24px;
+}
+
+.student-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 17px;
+}
+
+.student-search {
+  min-width: 210px;
+  max-width: 270px;
+  flex: 1 1 220px;
+}
+
+.student-sort {
+  max-width: 210px;
+  flex: 1 1 170px;
+}
+
+.student-search,
+.student-sort {
+  min-height: 41px;
+  border-color: #dfe4ee;
+  font-size: 0.83rem;
+}
+
+.student-stat {
+  padding: 9px 10px;
+  font-size: 0.73rem;
+  font-weight: 650;
+}
+
+.student-add-button {
+  min-height: 41px;
+  margin-left: auto;
+  font-size: 0.82rem;
+}
+
+.student-table {
+  margin: 0;
+  font-size: 0.82rem;
+  vertical-align: middle;
+}
+
+.student-table th {
+  white-space: nowrap;
+}
+
+.student-table td {
+  color: #4f5b70;
+}
+
+.student-code-cell {
+  color: #344a9b !important;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.student-loading {
+  display: flex;
+  min-height: 250px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #69758b;
+  font-size: 0.86rem;
+}
+
+.student-load-error p {
+  margin-bottom: 12px;
+}
+
+.student-form-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 12px;
+}
+
+.student-form-row .form-label,
+.modal-body .form-label {
+  color: #4f5b70;
+  font-size: 0.84rem;
+  font-weight: 650;
+}
+
+.modal-content {
+  border: 1px solid #e8ecf4;
+  border-radius: 16px;
+}
+
 @media (max-width: 480px) {
   .app-shell {
     padding-top: 52px;
@@ -938,5 +1067,28 @@ input {
     min-width: 27px;
     padding-right: 4px;
     padding-left: 4px;
+  }
+
+  .students-header {
+    padding: 18px;
+  }
+
+  .students-content {
+    padding: 17px;
+  }
+
+  .student-search,
+  .student-sort {
+    max-width: none;
+    flex-basis: 100%;
+  }
+
+  .student-add-button {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .student-form-row {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
