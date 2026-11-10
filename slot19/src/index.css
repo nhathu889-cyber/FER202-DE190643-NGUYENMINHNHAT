@@ -189,7 +189,7 @@ input {
 }
 
 .exercise-tab {
-  padding: 9px 16px;
+  padding: 9px 13px;
   border: 0;
   border-radius: 8px;
   background: transparent;
@@ -351,6 +351,217 @@ input {
   text-decoration: none;
 }
 
+.users-card {
+  max-width: 1000px;
+  overflow: hidden;
+  border: 1px solid #e8ecf4;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.users-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 21px 25px;
+  border-bottom: 1px solid #edf0f6;
+}
+
+.users-card-header h2 {
+  margin: 6px 0 3px;
+  font-size: 1.15rem;
+  font-weight: 750;
+}
+
+.users-card-header p {
+  margin: 0;
+  color: #8791a3;
+  font-size: 0.81rem;
+}
+
+.users-layout {
+  display: grid;
+  grid-template-columns: minmax(270px, 0.85fr) minmax(0, 1.4fr);
+  min-height: 430px;
+}
+
+.users-column,
+.posts-column {
+  min-width: 0;
+  padding: 22px;
+}
+
+.users-column {
+  border-right: 1px solid #edf0f6;
+}
+
+.users-section-title {
+  margin: 0 0 13px;
+  color: #69758b;
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.user-list {
+  gap: 7px;
+}
+
+.user-list .list-group-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #edf0f6;
+  border-radius: 10px;
+}
+
+.user-avatar {
+  display: grid;
+  width: 35px;
+  height: 35px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 11px;
+  background: #edf1ff;
+  color: #526ce0;
+  font-weight: 750;
+}
+
+.user-list .list-group-item.active .user-avatar {
+  background: rgb(255 255 255 / 20%);
+  color: #fff;
+}
+
+.user-information {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  gap: 2px;
+}
+
+.user-name,
+.user-meta {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-name {
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.user-meta {
+  color: #8791a3;
+  font-size: 0.68rem;
+}
+
+.user-list .list-group-item.active .user-meta {
+  color: rgb(255 255 255 / 80%);
+}
+
+.user-chevron {
+  color: #98a1b1;
+  font-size: 1.3rem;
+}
+
+.users-loading,
+.posts-loading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 18px 4px;
+  color: #69758b;
+  font-size: 0.85rem;
+}
+
+.users-empty {
+  padding: 14px 0;
+  color: #8791a3;
+  font-size: 0.86rem;
+}
+
+.posts-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.posts-heading h3 {
+  margin: 6px 0 0;
+  font-size: 1rem;
+  font-weight: 750;
+  overflow-wrap: anywhere;
+}
+
+.posts-count {
+  flex: 0 0 auto;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #edf1ff;
+  color: #526ce0;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.posts-list {
+  display: grid;
+  gap: 10px;
+}
+
+.post-card {
+  border-color: #edf0f6;
+  border-radius: 12px;
+}
+
+.post-card .card-body {
+  padding: 14px 15px;
+}
+
+.post-title {
+  margin-bottom: 7px;
+  color: #344056;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.45;
+  text-transform: capitalize;
+}
+
+.post-body {
+  margin: 0;
+  color: #788397;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+.posts-placeholder {
+  display: grid;
+  min-height: 240px;
+  align-content: center;
+  justify-items: center;
+  color: #98a1b1;
+}
+
+.posts-placeholder span {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 15px;
+  background: #f3f5fa;
+  font-size: 1.4rem;
+}
+
+.posts-placeholder p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
 @media (max-width: 480px) {
   .app-shell {
     padding-top: 52px;
@@ -389,5 +600,32 @@ input {
 
   .todo-edit-form {
     flex-wrap: wrap;
+  }
+
+  .exercise-tabs {
+    gap: 2px;
+  }
+
+  .exercise-tab {
+    padding: 8px 9px;
+    font-size: 0.78rem;
+  }
+
+  .users-card-header {
+    padding: 18px;
+  }
+
+  .users-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .users-column,
+  .posts-column {
+    padding: 17px;
+  }
+
+  .users-column {
+    border-right: 0;
+    border-bottom: 1px solid #edf0f6;
   }
 }

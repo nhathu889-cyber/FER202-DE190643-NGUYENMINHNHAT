@@ -1,14 +1,19 @@
-import { combineReducers, legacy_createStore as createStore } from 'redux';
-import counterReducer from './counterReducer.js';
-import { todoReducers } from './reducers/index.js';
+import { applyMiddleware, legacy_createStore as createStore } from 'redux';
+import { thunk } from 'redux-thunk';
+import rootReducer from './rootReducer.js';
 
-const rootReducer = combineReducers({
-  counter: counterReducer,
-  ...todoReducers,
-});
+const logger = () => (next) => (action) => {
+  if (typeof action !== 'function') console.log('[action]', action.type);
+  return next(action);
+};
 
-const devToolsEnhancer =
+const composeEnhancers =
   typeof window !== 'undefined' &&
-  window.__REDUX_DEVTOOLS_EXTENSION__?.();
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : (enhancer) => enhancer;
 
-export const store = createStore(rootReducer, devToolsEnhancer || undefined);
+export const store = createStore(
+  rootReducer,
+  composeEnhancers(applyMiddleware(thunk, logger)),
+);
