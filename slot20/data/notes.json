@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "Học Next.js",
+    "content": "App Router, Server Component",
+    "createdAt": "2026-11-01T08:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "title": "Học Redux Toolkit",
+    "content": "createSlice, createAsyncThunk, RTK Query",
+    "createdAt": "2026-11-02T08:00:00.000Z"
+  }
+]
